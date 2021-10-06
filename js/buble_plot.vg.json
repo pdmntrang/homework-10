@@ -1,0 +1,30 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json", 
+    "width": 500,
+    "height": 400,
+    "title": "COVID-19 Cases per Country (13 Oct 2020)",
+    "data": {
+        "url": "https://raw.githubusercontent.com/pdmntrang/data-visualisation/main/data/suicide-rate.csv"
+      },
+      "mark": "circle",
+    "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "quantitative",
+          "title": "Confirmed Cases",
+          "axis": {"tickCount": 8},
+          "scale": {"type": "linear", "domain": [2009,2019]}
+    }, "y": {
+          "field": "Year",
+          "type": "quantitative",
+          "axis": {"tickCount": 8},
+          "scale": {"type": "linear","domain": [2009,2019]}
+        },
+        "color": {
+          "field": "Continent",
+          "type": "nominal"
+    }, "size": {
+          "field": "Rate",
+           "type": "quantitative"
+    } }
+    }
