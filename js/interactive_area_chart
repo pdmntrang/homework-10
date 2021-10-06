@@ -1,89 +1,86 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "data": {
-      "url": "https://raw.githubusercontent.com/pdmntrang/data-visualisation/main/data/suicide-rate.csv"
-    },
-    "params": [
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/pdmntrang/data-visualisation/main/data/suicide-rate.csv"
+  },
+  "params": [
+  {
+    "name": "Gender_selection",
+    "value": "Both sexes",
+    "bind": {
+      "input": "select",
+      "options": [
+        "Both sexes",
+        "Male",
+        "Female"
+      ],
+      "labels": [
+        "Total",
+        "Male",
+        "Female"
+      ],
+      "name": "Gender selection: "
+    }
+  }],
+  "transform": [
+    {"filter": "Gender_selection == null || datum.Sex == Gender_selection"}
+  ],
+  "vconcat": [
     {
-      "name": "Gender_selection",
-      "value": "Both sexes",
-      "bind": {
-        "input": "select",
-        "options": [
-          "Both sexes",
-          "Male",
-          "Female"
-        ],
-        "labels": [
-          "Total",
-          "Male",
-          "Female"
-        ],
-        "name": "Gender selection: "
-      }
-    }],
-    "transform": [
-      {"filter": "Gender_selection == null || datum.Sex == Gender_selection"}
-    ],
-    "vconcat": [
-      {
-        "width": 500,
-        "height": 300,
-        "mark": "area",
-        "encoding": {
-          "x": {
-            "timeUnit": "year", "field": "Year",
-            "scale": {"domain": {"param": "brush"}},
-            "axis": {"title": "", "tickCount": 10}
-          },
-          "y": {
-            "aggregate": "average",
-            "field": "Rate", "type": "quantitative",
-            "title": "Average Suicide Rate"},
-          "color": {
-            "field": "Continent",
-            "type": "nominal",
-            "scale": {
-              "domain": [
-                "Africa",
-                "Americas",
-                "Eastern Mediterranean",
-                "Europe",
-                "South-East Asia",
-                "Western Pacific"
-              ],
-              "range": [
-                "#bbdefb",
-                "#f4a261",
-                "#f47068",
-                "#cdb4db",
-                "#e6ccb2",
-                "#5390d9"
-              ]
-            }
-        }
-        }
-      },
-      {
-        "width": 500,
-        "height": 100,
-        "mark": "line",
-        "params": [
-          {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
-        ],
-        "encoding": {
-          "x": {"field": "Year", "type": "temporal", "axis": {"tickCount": 11}},
-          "y": {
-            "aggregate": "average",
-            "field": "Rate",
-            "type": "quantitative",
-            "axis": {"tickCount": 3, "grid": false},
-            "title": "Average Suicide Rate"
-          },
-          "color": {
-            "scale": {"scheme": "pastel1"}
+      "width": 500,
+      "height": 300,
+      "mark": "area",
+      "encoding": {
+        "x": {
+          "timeUnit": "year", "field": "Year",
+          "scale": {"domain": {"param": "brush"}},
+          "axis": {"title": "", "tickCount": 10}
+        },
+        "y": {
+          "aggregate": "average",
+          "field": "Rate", "type": "quantitative",
+          "title": "Average Suicide Rate"},
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Africa",
+              "Americas",
+              "Eastern Mediterranean",
+              "Europe",
+              "South-East Asia",
+              "Western Pacific"
+            ],
+            "range": [
+              "#bbdefb",
+              "#f4a261",
+              "#f47068",
+              "#cdb4db",
+              "#e6ccb2",
+              "#5390d9"
+            ]
           }
+      }
+      }
+    },
+    {
+      "width": 500,
+      "height": 100,
+      "mark": "line",
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {"field": "Year", "type": "temporal", "axis": {"tickCount": 11}},
+        "y": {
+          "aggregate": "average",
+          "field": "Rate",
+          "type": "quantitative",
+          "axis": {"tickCount": 3, "grid": false},
+          "title": "Average Suicide Rate"
         }
       }
-    ]
-  }
+    }
+  ]
+}
