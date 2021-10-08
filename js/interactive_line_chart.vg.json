@@ -96,7 +96,7 @@
             "type": "text", 
             "align": "right",
             "baseline": "line-top",
-            "fontSize": 11,
+            "fontSize": 12,
             "fontStyle": "italic",
             "aria": false,
             "dx": 190,
