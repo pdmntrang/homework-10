@@ -1,0 +1,137 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Suicide Rate over 10 years",
+    "fontSize": 20
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/pdmntrang/data-visualisation/main/data/suicide-rate.csv"
+  },
+  "params": [
+  {
+    "name": "Gender_selection",
+    "value": "Both sexes",
+    "bind": {
+      "input": "select",
+      "options": [
+        "Both sexes",
+        "Male",
+        "Female"
+      ],
+      "labels": [
+        "Total",
+        "Male",
+        "Female"
+      ],
+      "name": "Gender selection: "
+    }
+  }],
+  "transform": [
+    {"filter": "Gender_selection == null || datum.Sex == Gender_selection"},
+    {"calculate": "datum.Rate/100", "as": "Suicide Rate (per 100,000 population)"}
+  ],
+  "vconcat": [
+    {
+      "width": "container",
+      "height": 400,
+      "encoding": {
+        "y": {
+          "aggregate": "average",
+          "field": "Rate", "type": "quantitative",
+          "title": "Average Suicide Rate"}
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "interpolate": "monotone",
+            "point": {
+              "filled": false,
+              "fill": "white"
+            }},
+          "encoding": {
+          "x": {
+            "timeUnit": "year", 
+            "field": "Year",
+            "scale": {"domain": {"param": "brush"}},
+            "axis": {"title": "", "tickCount": 10}
+          },
+          "color": {
+            "field": "Continent",
+            "type": "nominal",
+            "scale": {
+              "domain": [
+                "Africa",
+                "Americas",
+                "Eastern Mediterranean",
+                "Europe",
+                "South-East Asia",
+                "Western Pacific"
+              ],
+              "range": [
+                "#bbdefb",
+                "#f4a261",
+                "#f47068",
+                "#cdb4db",
+                "#e6ccb2",
+                "#5390d9"
+              ]
+            },
+            "legend": null},
+          "tooltip": [
+            {
+              "field": "Continent", 
+              "type": "nominal", 
+              "title": "Continent"},
+            {
+              "field": "Suicide Rate (per 100,000 population)", 
+              "aggregate": "average", 
+              "type": "quantitative", 
+              "title": "Suicide Rate", 
+              "format": ".2%"}
+             ]
+      }
+        },
+        {
+          "mark": {
+            "type": "text", 
+            "align": "right",
+            "baseline": "line-top",
+            "fontSize": 11,
+            "fontStyle": "italic",
+            "aria": false,
+            "dx": 190,
+            "dy": 3},
+          "encoding": {
+            "text": {
+              "field": "Continent", 
+              "type": "nominal"}
+    }
+      }]
+    },
+    {
+      "width": "container",
+      "height": 100,
+      "mark": "line",
+      "params": [
+        {"name": "brush", 
+          "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {
+          "field": "Year", 
+          "type": "temporal", 
+          "axis": {"tickCount": 11}},
+        "y": {
+          "aggregate": "average",
+          "field": "Rate",
+          "type": "quantitative",
+          "axis": {"tickCount": 3, "grid": false},
+          "title": "Average Suicide Rate"
+        }
+      }
+    }
+  ],
+  "config": {
+  }
+}

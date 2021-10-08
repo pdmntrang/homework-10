@@ -1,0 +1,146 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json", 
+  "width": "container",
+  "height": 400,
+  "title": {
+  "text": "Suicide Rate in 2019 vs 2009",
+  "fontSize": 20
+},
+  "params": [{
+      "name": "Continent_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "Africa",
+          "Americas",
+          "Eastern Mediterranean",
+          "Europe",
+          "South-East Asia",
+          "Western Pacific"
+        ],
+        "labels": [
+          "Show All",
+          "Africa",
+          "Americas",
+          "Eastern Mediterranean",
+          "Europe",
+          "South-East Asia",
+          "Western Pacific"
+        ],
+        "name": "Continent Selection: "
+      }
+    },
+    {
+    "name": "Gender_selection",
+    "value": "Both sexes",
+    "bind": {
+      "input": "select",
+      "options": [
+        "Both sexes",
+        "Male",
+        "Female"
+      ],
+      "labels": [
+        "Total",
+        "Male",
+        "Female"
+      ],
+      "name": "Gender selection: "
+    }
+  }],
+  "data": {
+      "url": "https://raw.githubusercontent.com/pdmntrang/data-visualisation/main/data/suicide-rate-wide.csv"
+    },
+    
+    "transform": [
+      {"filter": "datum.Y2009 > 0"}, {"calculate": "datum.Y2009/100", "as": "Suicide Rate in 2009"},
+      {"filter": "datum.Y2019 > 0"}, {"calculate": "datum.Y2019/100", "as": "Suicide Rate in 2019"},
+      {"filter": "Continent_selection == null || datum.Continent == Continent_selection"},
+      {"filter": "Gender_selection == null || datum.Sex == Gender_selection"}
+  ],
+  "layer": [
+    {
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "Y2019",
+        "type": "quantitative",
+        "title": "Suicide Rate in 2019",
+        "axis": {"tickCount": 3},
+        "scale": {"type": "log"}
+      },
+      "y": {
+        "field": "Y2009",
+        "type": "quantitative",
+        "title": "Suicide Rate in 2009",
+        "axis": {"tickCount": 3},
+        "scale": {"type": "log"}
+      },
+      "color": {
+        "field": "Continent",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "Africa",
+            "Americas",
+            "Eastern Mediterranean",
+            "Europe",
+            "South-East Asia",
+            "Western Pacific"
+          ],
+          "range": [
+            "#bbdefb",
+            "#f4a261",
+            "#f47068",
+            "#cdb4db",
+            "#e6ccb2",
+            "#5390d9"
+          ]
+        }
+      },
+        "tooltip": [
+            {"field": "Country", "type": "nominal"},
+            {"field": "Suicide Rate in 2019", "type": "quantitative", "format": ".2%"}
+          ]
+  }
+  },
+  
+  {
+    "mark": {
+      "type": "text",
+      "align": "right",
+      "baseline": "middle",
+      "dx": 60,
+      "fontSize": 12,
+      "fontStyle": "italic"
+    },
+    "encoding": {
+      "x": {
+      "field": "Y2019",
+      "type": "quantitative",
+      "axis": {"tickCount": 4},
+      "scale": {"type": "log"}
+     },
+     "y": {
+      "field": "Y2009",
+      "type": "quantitative",
+      "axis": {"tickCount": 4},
+      "scale": {"type": "log"}
+      },
+      "text": {"field": "Country", "type": "nominal"},
+      "color": {"value": "black"},
+      "opacity": {
+        "condition": {
+          "test": "datum.Country == 'Brunei Darussalam' || datum.Country == 'Philippines' || datum.Country == 'Australia' || datum.Country == 'South Africa' || datum.Country == 'Barbados' || datum.Country == 'France' ||  datum.Country == 'Thailand'",
+          "value": 1
+        },
+        "value": 0
+      },
+      "tooltip": [
+        {"field": "Country", "type": "nominal"},
+        {"field": "Suicide Rate in 2019", "type": "quantitative", "format": ".2%"}
+      ]
+      }
+  }
+  ]}
