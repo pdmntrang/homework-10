@@ -5,7 +5,7 @@
     "fontSize": 20
   },
   "width": "container",
-  "height": 700,
+  "height": 600,
   "projection": {"type": "equirectangular"},
   "params": [
     {
