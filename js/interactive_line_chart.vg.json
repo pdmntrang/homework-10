@@ -87,7 +87,6 @@
               "field": "Suicide Rate (per 100,000 population)", 
               "aggregate": "average", 
               "type": "quantitative", 
-              "title": "Suicide Rate", 
               "format": ".2%"}
              ]
       }

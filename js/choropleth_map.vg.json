@@ -94,7 +94,7 @@
     },
     "tooltip": [
       {"field": "Country", "type": "nominal", "title": "Country"},
-      {"field": "Suicide Rate (per 100,000 population)", "type": "quantitative", "title": "Suicide Rate", "format": ".2%"}
+      {"field": "Suicide Rate (per 100,000 population)", "type": "quantitative", "format": ".2%"}
     ]
   }
 }],
