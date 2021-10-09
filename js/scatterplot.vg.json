@@ -6,31 +6,7 @@
   "text": "Suicide Rate in 2019 vs 2009",
   "fontSize": 20
 },
-  "params": [{
-      "name": "Continent_selection",
-      "bind": {
-        "input": "select",
-        "options": [
-          null,
-          "Africa",
-          "Americas",
-          "Eastern Mediterranean",
-          "Europe",
-          "South-East Asia",
-          "Western Pacific"
-        ],
-        "labels": [
-          "Show All",
-          "Africa",
-          "Americas",
-          "Eastern Mediterranean",
-          "Europe",
-          "South-East Asia",
-          "Western Pacific"
-        ],
-        "name": "Continent Selection: "
-      }
-    },
+  "params": [
     {
     "name": "Gender_selection",
     "value": "Both sexes",
@@ -56,7 +32,6 @@
     "transform": [
       {"filter": "datum.Y2009 > 0"}, {"calculate": "datum.Y2009/100", "as": "Suicide Rate in 2009 (per 100,000 population)"},
       {"filter": "datum.Y2019 > 0"}, {"calculate": "datum.Y2019/100", "as": "Suicide Rate in 2019 (per 100,000 population)"},
-      {"filter": "Continent_selection == null || datum.Continent == Continent_selection"},
       {"filter": "Gender_selection == null || datum.Sex == Gender_selection"}
   ],
   "layer": [
